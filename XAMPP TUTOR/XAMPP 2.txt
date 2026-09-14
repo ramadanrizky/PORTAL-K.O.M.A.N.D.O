@@ -1,0 +1,58 @@
+Microsoft Windows [Version 10.0.26200.9168]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\MyBook Pro Max Army>LS
+'LS' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\MyBook Pro Max Army>C..
+'C..' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\MyBook Pro Max Army>CD ..
+
+C:\Users>CD ..
+
+C:\>CD xampp
+
+C:\xampp>CD mysql
+
+C:\xampp\mysql>CD BIN
+
+C:\xampp\mysql\bin>mysqldump -u root --all-databases > D:\backup_semua.sql
+mysqldump: Couldn't execute 'SELECT /*!40001 SQL_NO_CACHE */ `Host`, `Db`, `User`, `Select_priv`, `Insert_priv`, `Update_priv`, `Delete_priv`, `Create_priv`, `Drop_priv`, `Grant_priv`, `References_priv`, `Index_priv`, `Alter_priv`, `Create_tmp_table_priv`, `Lock_tables_priv`, `Create_view_priv`, `Show_view_priv`, `Create_routine_priv`, `Alter_routine_priv`,`Execute_priv`, `Event_priv`, `Trigger_priv`, `Delete_history_priv` FROM `db`': Lost connection to MySQL server during query (2013)
+
+C:\xampp\mysql\bin>mysql -u root -e "SHOW DATABASES;"
++--------------------+
+| Database           |
++--------------------+
+| data               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| portal_karyawan    |
+| test               |
++--------------------+
+
+C:\xampp\mysql\bin>mysqldump -u root --single-transaction --skip-lock-tables --databases db_obesitas nama_db_lain_1 nama_db_lain_2 > D:\backup_semua.sql
+mysqldump: Got error: 1049: "Unknown database 'db_obesitas'" when selecting the database
+
+C:\xampp\mysql\bin>mysql -u root -e "SHOW DATABASES;"
++--------------------+
+| Database           |
++--------------------+
+| data               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| portal_karyawan    |
+| test               |
++--------------------+
+
+C:\xampp\mysql\bin>mysqldump -u root --single-transaction --skip-lock-tables --databases data portal_karyawan phpmyadmin > D:\backup_semua.sql
+
+C:\xampp\mysql\bin>D:\backup_semua.sql
+
+C:\xampp\mysql\bin>

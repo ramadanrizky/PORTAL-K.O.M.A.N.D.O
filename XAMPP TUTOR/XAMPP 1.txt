@@ -1,0 +1,127 @@
+Microsoft Windows [Version 10.0.26200.9168]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\MyBook Pro Max Army> C:\xampp\mysql\bin
+'C:\xampp\mysql\bin' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\MyBook Pro Max Army>CD  C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysqld --console --skip-grant-tables
+2026-08-27  9:58:53 0 [Note] Starting MariaDB 10.4.32-MariaDB source revision c4143f909528e3fab0677a28631d10389354c491 as process 13676
+2026-08-27  9:58:53 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2026-08-27  9:58:53 0 [Note] InnoDB: Uses event mutexes
+2026-08-27  9:58:53 0 [Note] InnoDB: Compressed tables use zlib 1.3
+2026-08-27  9:58:53 0 [Note] InnoDB: Number of pools: 1
+2026-08-27  9:58:53 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2026-08-27  9:58:53 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2026-08-27  9:58:53 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-08-27  9:58:53 0 [Note] InnoDB: The log sequence number 423620 in the system tablespace does not match the log sequence number 423948 in the ib_logfiles!
+2026-08-27  9:58:53 0 [Note] InnoDB: Last binlog file '.\mysql-bin.000003', position 1707
+2026-08-27  9:58:53 0 [Note] InnoDB: Resizing redo log from 2*5242880 to 2*50331648 bytes; LSN=423957
+2026-08-27  9:58:53 0 [Note] InnoDB: Starting to delete and rewrite log files.
+2026-08-27  9:58:53 0 [Note] InnoDB: Setting log file .\ib_logfile101 size to 50331648 bytes
+2026-08-27  9:58:53 0 [Note] InnoDB: Setting log file .\ib_logfile1 size to 50331648 bytes
+2026-08-27  9:58:53 0 [Note] InnoDB: Renaming log file .\ib_logfile101 to .\ib_logfile0
+2026-08-27  9:58:53 0 [Note] InnoDB: New log files created, LSN=423957
+2026-08-27  9:58:53 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2026-08-27  9:58:53 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2026-08-27  9:58:53 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-08-27  9:58:53 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-08-27  9:58:53 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2026-08-27  9:58:53 0 [Note] InnoDB: Waiting for purge to start
+2026-08-27  9:58:53 0 [Note] InnoDB: 10.4.32 started; log sequence number 423957; transaction id 403
+2026-08-27  9:58:53 0 [Note] InnoDB: Loading buffer pool(s) from c:\xampp\mysql\data\ib_buffer_pool
+2026-08-27  9:58:53 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-08-27  9:58:53 0 [Note] Server socket created on IP: '::'.
+2026-08-27  9:58:53 0 [Note] InnoDB: Buffer pool(s) load completed at 260827  9:58:53
+2026-08-27  9:58:54 0 [Note] Reading of all Master_info entries succeeded
+2026-08-27  9:58:54 0 [Note] Added new Master_info '' to hash table
+2026-08-27  9:58:54 0 [Note] mysqld: ready for connections.
+Version: '10.4.32-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+260827 10:00:20 [ERROR] mysqld got exception 0xc0000005 ;
+Sorry, we probably made a mistake, and this is a bug.
+
+Your assistance in bug reporting will enable us to fix this for the next release.
+To report this bug, see https://mariadb.com/kb/en/reporting-bugs
+
+We will try our best to scrape up some info that will hopefully help
+diagnose the problem, but since we have already crashed,
+something is definitely wrong and this may fail.
+
+Server version: 10.4.32-MariaDB source revision: c4143f909528e3fab0677a28631d10389354c491
+key_buffer_size=134217728
+read_buffer_size=131072
+max_used_connections=1
+max_threads=65537
+thread_count=6
+It is possible that mysqld could use up to
+key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 136400 K  bytes of memory
+Hope that's ok; if not, decrease some variables in the equation.
+
+Thread pointer: 0x1867cc66908
+Attempting backtrace. You can use the following information to find out
+where mysqld died. If you see no messages after this, something went
+terribly wrong...
+VCRUNTIME140.dll!memcpy()
+mysqld.exe!parse_user()
+mysqld.exe!parse_user()
+mysqld.exe!?ha_rnd_next@handler@@QEAAHPEAE@Z()
+mysqld.exe!?rr_sequential@@YAHPEAUREAD_RECORD@@@Z()
+mysqld.exe!?sub_select@@YA?AW4enum_nested_loop_state@@PEAVJOIN@@PEAUst_join_table@@_N@Z()
+mysqld.exe!?disjoin@?$List@VItem@@@@QEAAXPEAV1@@Z()
+mysqld.exe!?exec_inner@JOIN@@QEAAXXZ()
+mysqld.exe!?exec@JOIN@@QEAAXXZ()
+mysqld.exe!?mysql_select@@YA_NPEAVTHD@@PEAUTABLE_LIST@@IAEAV?$List@VItem@@@@PEAVItem@@IPEAUst_order@@434_KPEAVselect_result@@PEAVst_select_lex_unit@@PEAVst_select_lex@@@Z()
+mysqld.exe!?handle_select@@YA_NPEAVTHD@@PEAULEX@@PEAVselect_result@@K@Z()
+mysqld.exe!?execute_init_command@@YAXPEAVTHD@@PEAUst_mysql_lex_string@@PEAUst_mysql_rwlock@@@Z()
+mysqld.exe!?mysql_execute_command@@YAHPEAVTHD@@@Z()
+mysqld.exe!?mysql_parse@@YAXPEAVTHD@@PEADIPEAVParser_state@@_N3@Z()
+mysqld.exe!?dispatch_command@@YA_NW4enum_server_command@@PEAVTHD@@PEADI_N3@Z()
+mysqld.exe!?do_command@@YA_NPEAVTHD@@@Z()
+mysqld.exe!?pool_of_threads_scheduler@@YAXPEAUscheduler_functions@@PEAKPEAI@Z()
+mysqld.exe!?tp_callback@@YAXPEAUTP_connection@@@Z()
+ntdll.dll!RtlSetThreadSubProcessTag()
+ntdll.dll!RtlSetThreadSubProcessTag()
+KERNEL32.DLL!BaseThreadInitThunk()
+ntdll.dll!RtlUserThreadStart()
+
+Trying to get some variables.
+Some pointers may be invalid and cause the dump to abort.
+Query (0x1867cc7ea80): SELECT /*!40001 SQL_NO_CACHE */ `Host`, `Db`, `User`, `Select_priv`, `Insert_priv`, `Update_priv`, `Delete_priv`, `Create_priv`, `Drop_priv`, `Grant_priv`, `References_priv`, `Index_priv`, `Alter_priv`, `Create_tmp_table_priv`, `Lock_tables_priv`, `Create_view_priv`, `Show_view_priv`, `Create_routine_priv`, `Alter_routine_priv`, `Execute_priv`, `Event_priv`, `Trigger_priv`, `Delete_history_priv` FROM `db`
+Connection ID (thread ID): 8
+Status: NOT_KILLED
+
+Optimizer switch: index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,index_merge_sort_intersection=off,engine_condition_pushdown=off,index_condition_pushdown=on,derived_merge=on,derived_with_keys=on,firstmatch=on,loosescan=on,materialization=on,in_to_exists=on,semijoin=on,partial_match_rowid_merge=on,partial_match_table_scan=on,subquery_cache=on,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=on,semijoin_with_cache=on,join_cache_incremental=on,join_cache_hashed=on,join_cache_bka=on,optimize_join_buffer_size=on,table_elimination=on,extended_keys=on,exists_to_in=on,orderby_uses_equalities=on,condition_pushdown_for_derived=on,split_materialized=on,condition_pushdown_for_subquery=on,rowid_filter=on,condition_pushdown_from_having=on
+
+The manual page at https://mariadb.com/kb/en/how-to-produce-a-full-stack-trace-for-mariadbd/ contains
+information that should help you find out what is causing the crash.
+Writing a core file at c:\xampp\mysql\data
+Minidump written to c:\xampp\mysql\data\mysqld.dmp
+
+C:\xampp\mysql\bin>mysqld --console --skip-grant-tables
+2026-08-27 10:05:14 0 [Note] Starting MariaDB 10.4.32-MariaDB source revision c4143f909528e3fab0677a28631d10389354c491 as process 16508
+2026-08-27 10:05:14 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2026-08-27 10:05:14 0 [Note] InnoDB: Uses event mutexes
+2026-08-27 10:05:14 0 [Note] InnoDB: Compressed tables use zlib 1.3
+2026-08-27 10:05:14 0 [Note] InnoDB: Number of pools: 1
+2026-08-27 10:05:14 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2026-08-27 10:05:14 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+2026-08-27 10:05:14 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-08-27 10:05:14 0 [Note] InnoDB: The log sequence number 423957 in the system tablespace does not match the log sequence number 424460 in the ib_logfiles!
+2026-08-27 10:05:14 0 [Note] InnoDB: Last binlog file '.\mysql-bin.000003', position 1707
+2026-08-27 10:05:14 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2026-08-27 10:05:14 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2026-08-27 10:05:14 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-08-27 10:05:14 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-08-27 10:05:14 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2026-08-27 10:05:14 0 [Note] InnoDB: Waiting for purge to start
+2026-08-27 10:05:14 0 [Note] InnoDB: 10.4.32 started; log sequence number 424460; transaction id 403
+2026-08-27 10:05:14 0 [Note] InnoDB: Loading buffer pool(s) from c:\xampp\mysql\data\ib_buffer_pool
+2026-08-27 10:05:14 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-08-27 10:05:14 0 [Note] Server socket created on IP: '::'.
+2026-08-27 10:05:14 0 [Note] InnoDB: Buffer pool(s) load completed at 260827 10:05:14
+2026-08-27 10:05:15 0 [Note] Reading of all Master_info entries succeeded
+2026-08-27 10:05:15 0 [Note] Added new Master_info '' to hash table
+2026-08-27 10:05:15 0 [Note] mysqld: ready for connections.
+Version: '10.4.32-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution

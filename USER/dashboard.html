@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Karyawan - Dashboard</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-64 bg-slate-900 border-r border-slate-800 flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <!-- Logo & Brand Header -->
+            <div class="flex items-center justify-between h-16 bg-slate-950 px-5 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">PORTAL KARYAWAN</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Sistem Informasi Kantor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg shadow-sm border border-blue-600/50">
+                    <i class="fas fa-home text-sm w-5 text-center mr-3 text-blue-200"></i> Beranda
+                </a>
+                <a href="tugas-saya.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tasks text-sm w-5 text-center mr-3 text-slate-400"></i> Tugas Saya
+                </a>
+                <a href="direktori-staf.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-address-book text-sm w-5 text-center mr-3 text-slate-400"></i> Direktori Staf
+                </a>
+                <a href="bantuan.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-question-circle text-sm w-5 text-center mr-3 text-slate-400"></i> Pusat Bantuan
+                </a>
+                <a href="alat-bantuan.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-toolbox text-sm w-5 text-center mr-3 text-slate-400"></i> Alat Bantuan Dokumen
+                </a>
+                <a href="jadwal-rapat.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-plus text-sm w-5 text-center mr-3 text-slate-400"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-sm w-5 text-center mr-3 text-slate-400"></i> Kalender Kegiatan
+                </a>
+                <a href="profile.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-user-circle text-sm w-5 text-center mr-3 text-slate-400"></i> Profil Saya
+                </a>
+            </nav>
+
+            <!-- Bottom Profile & Logout -->
+            <div class="p-3 border-t border-slate-800">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+                <p class="text-center text-[10px] text-slate-500 mt-3 font-medium">Versi Sistem: 3.2.0-PROD</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-16 bg-white border-b border-slate-200 flex items-center px-4 sm:px-6 justify-between">
+            <div class="flex items-center gap-3">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+                <div>
+                    <h1 class="text-lg font-extrabold text-slate-900 tracking-tight">Beranda Utama</h1>
+                    <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Sistem Kerja Digital & Manajemen Aktivitas Karyawan</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Staf Aktif
+                </div>
+                <div class="flex items-center gap-3 border-l border-slate-200 pl-4">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-xs font-bold text-slate-900 leading-tight">{{ user_name or 'Pengguna' }}</p>
+                        <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Staf Kantor</p>
+                    </div>
+                    <img class="h-9 w-9 rounded-lg border border-slate-300 bg-slate-100 object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'P' }}&background=075985&color=fff&bold=true" alt="Avatar">
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-slate-950 px-4 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-blue-700 flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">PORTAL KARYAWAN</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-home text-sm w-5 text-center mr-3"></i> Beranda</a>
+                    <a href="tugas-saya.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tasks text-sm w-5 text-center mr-3"></i> Tugas Saya</a>
+                    <a href="direktori-staf.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-address-book text-sm w-5 text-center mr-3"></i> Direktori Staf</a>
+                    <a href="bantuan.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-question-circle text-sm w-5 text-center mr-3"></i> Pusat Bantuan</a>
+                    <a href="alat-bantuan.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-toolbox text-sm w-5 text-center mr-3"></i> Alat Bantuan Dokumen</a>
+                    <a href="jadwal-rapat.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="profile.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-user-circle text-sm w-5 text-center mr-3"></i> Profil Saya</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <!-- Welcome Banner -->
+                <div class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-slate-200/60 border border-slate-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:20px_20px] opacity-10"></div>
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-3">
+                            <i class="fas fa-building-user text-blue-400"></i> Ruang Kerja Digital
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Selamat Datang Kembali, {{ user_name or 'Pengguna' }}!</h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
+                            Berikut adalah ringkasan tugas aktif, agenda rapat terbaru, dan informasi pengumuman resmi Kantor Anda hari ini.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-700 text-xl flex-shrink-0">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tugas Aktif</p>
+                            <p class="text-2xl font-extrabold text-slate-900 mt-0.5" id="stat-tugas-aktif">-</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700 text-xl flex-shrink-0">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Proyek Selesai</p>
+                            <p class="text-2xl font-extrabold text-slate-900 mt-0.5" id="stat-tugas-selesai">-</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-700 text-xl flex-shrink-0">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pengumuman</p>
+                            <p class="text-2xl font-extrabold text-slate-900 mt-0.5" id="stat-pengumuman">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Left: Recent Tasks -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-tasks text-blue-700"></i> Tugas Terbaru (Dari Atasan)
+                            </h3>
+                            <a href="tugas-saya.html" class="text-xs font-bold text-blue-700 hover:underline flex items-center gap-1">Lihat Semua <i class="fas fa-arrow-right text-[10px]"></i></a>
+                        </div>
+                        <ul id="tugas-list" class="divide-y divide-slate-100 text-xs">
+                            <li class="p-4 text-center text-slate-500">
+                                <i class="fas fa-circle-notch fa-spin text-blue-700 mr-2"></i> Memuat tugas...
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Announcements -->
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 border-b border-slate-200">
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fas fa-bullhorn text-indigo-600"></i> Pengumuman Kedinasan
+                            </h3>
+                        </div>
+                        <div id="pengumuman-container" class="p-5 space-y-3 flex-1 overflow-y-auto">
+                            <div class="text-center py-8 text-slate-500 text-xs">
+                                <i class="fas fa-circle-notch fa-spin text-blue-700 text-lg mb-2"></i>
+                                <p>Memuat pengumuman...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    // Priority badge mapping
+    const badgePrioritas = {
+        rendah: 'bg-slate-100 text-slate-600 border-slate-200',
+        sedang: 'bg-amber-100 text-amber-700 border-amber-200',
+        tinggi: 'bg-red-100 text-red-700 border-red-200'
+    };
+    const badgeStatus = {
+        belum: 'bg-slate-100 text-slate-600 border-slate-200',
+        proses: 'bg-blue-100 text-blue-700 border-blue-200',
+        selesai: 'bg-emerald-100 text-emerald-700 border-emerald-200'
+    };
+    const statusLabels = {
+        belum: 'Belum Dikerjakan',
+        proses: 'Sedang Dikerjakan',
+        selesai: 'Selesai'
+    };
+
+    function formatTanggal(deadlineStr) {
+        if (!deadlineStr) return '-';
+        const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+        const [tahun, bln, tgl] = deadlineStr.split('-');
+        return `${parseInt(tgl)} ${bulan[parseInt(bln) - 1]} ${tahun}`;
+    }
+
+    // Fetch Tasks from API
+    async function loadTasks() {
+        try {
+            const response = await fetch('/api/tugas');
+            if (!response.ok) throw new Error('Gagal memuat tugas.');
+            const tasks = await response.json();
+
+            // Update stats
+            const aktif = tasks.filter(t => t.status !== 'selesai').length;
+            const selesai = tasks.filter(t => t.status === 'selesai').length;
+            document.getElementById('stat-tugas-aktif').textContent = aktif;
+            document.getElementById('stat-tugas-selesai').textContent = selesai;
+
+            // Show latest 5 tasks
+            const list = document.getElementById('tugas-list');
+            list.innerHTML = '';
+
+            if (tasks.length === 0) {
+                list.innerHTML = '<li class="p-4 text-center text-slate-500">Belum ada tugas.</li>';
+                return;
+            }
+
+            tasks.slice(0, 5).forEach(t => {
+                const prioritasClass = badgePrioritas[t.prioritas] || 'bg-slate-100 text-slate-600 border-slate-200';
+                const statusClass = badgeStatus[t.status] || 'bg-slate-100 text-slate-600 border-slate-200';
+                const statusLabel = statusLabels[t.status] || t.status;
+                const pemberi = t.diberikan_oleh ? `<p class="text-[10px] text-indigo-600 mt-0.5"><i class="fas fa-user-tie mr-1"></i>Dari: ${t.diberikan_oleh}</p>` : '';
+
+                const priorityIcon = {
+                    tinggi: '<i class="fas fa-exclamation-triangle text-red-600"></i>',
+                    sedang: '<i class="fas fa-clock text-amber-600"></i>',
+                    rendah: '<i class="fas fa-minus-circle text-slate-600"></i>'
+                }[t.prioritas] || '<i class="fas fa-tasks text-slate-600"></i>';
+
+                const priorityBg = {
+                    tinggi: 'bg-red-50 text-red-600',
+                    sedang: 'bg-amber-50 text-amber-600',
+                    rendah: 'bg-slate-50 text-slate-600'
+                }[t.prioritas] || 'bg-slate-50 text-slate-600';
+
+                const li = document.createElement('li');
+                li.className = 'p-4 hover:bg-slate-50 transition-colors flex items-start justify-between gap-4';
+                li.innerHTML = `
+                    <div class="flex items-start gap-3 flex-1 min-w-0">
+                        <div class="w-9 h-9 rounded-lg ${priorityBg} flex items-center justify-center text-sm flex-shrink-0">${priorityIcon}</div>
+                        <div class="min-w-0">
+                            <p class="font-bold text-slate-900 truncate">${t.judul}</p>
+                            ${pemberi}
+                            <p class="text-slate-500 mt-0.5 text-[11px]">${t.deadline_tampil ? 'Jatuh tempo: ' + t.deadline_tampil : 'Tidak ada deadline'}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                        <span class="px-2 py-1 rounded-md border text-[10px] font-bold ${statusClass}">${statusLabel}</span>
+                        <span class="px-2 py-1 rounded-md border text-[10px] font-bold ${prioritasClass}">${t.prioritas.charAt(0).toUpperCase() + t.prioritas.slice(1)}</span>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+        } catch (error) {
+            console.error('Error loading tasks:', error);
+            document.getElementById('tugas-list').innerHTML = '<li class="p-4 text-center text-red-600">Gagal memuat tugas.</li>';
+        }
+    }
+
+    // Fetch Announcements
+    document.addEventListener('DOMContentLoaded', async () => {
+        loadTasks();
+        
+        const container = document.getElementById('pengumuman-container');
+        try {
+            const response = await fetch('/api/pengumuman');
+            if (!response.ok) throw new Error('Gagal memuat pengumuman.');
+            const announcements = await response.json();
+
+            document.getElementById('stat-pengumuman').textContent = announcements.length;
+            container.innerHTML = '';
+
+            if (announcements.length === 0) {
+                container.innerHTML = '<p class="text-center text-slate-500 text-xs py-4">Tidak ada pengumuman saat ini.</p>';
+                return;
+            }
+
+            const colorMap = { 'indigo': 'border-blue-500 bg-blue-50/40', 'teal': 'border-emerald-500 bg-emerald-50/40', 'yellow': 'border-amber-500 bg-amber-50/40', 'red': 'border-red-500 bg-red-50/40' };
+
+            announcements.forEach(ann => {
+                const borderColorClass = colorMap[ann.category] || 'border-slate-400 bg-slate-50/40';
+                const annElement = document.createElement('div');
+                annElement.className = `border-l-3 ${borderColorClass} p-3 rounded-r-lg`;
+                annElement.innerHTML = `
+                    <h4 class="font-bold text-slate-900 text-xs">${ann.title}</h4>
+                    <p class="text-xs text-slate-600 mt-1 leading-relaxed line-clamp-3">${ann.content}</p>
+                    <p class="text-[10px] text-slate-400 mt-1 font-medium"><i class="fas fa-clock mr-1"></i> ${ann.date}</p>
+                `;
+                container.appendChild(annElement);
+            });
+        } catch (error) {
+            container.innerHTML = `<p class="text-center text-red-600 text-xs font-medium py-4">Gagal memuat pengumuman.</p>`;
+        }
+    });
+</script>
+</body>
+</html>
