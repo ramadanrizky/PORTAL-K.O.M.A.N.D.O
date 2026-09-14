@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Internal Karyawan - Masuk</title>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-700 selection:text-white">
+
+    <!-- Top Simple Corporate Bar (Mobile/Desktop) -->
+    <header class="w-full bg-white border-b border-slate-200 py-3 px-6 lg:px-12 flex items-center justify-between z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                <i class="fas fa-building-columns"></i>
+            </div>
+            <div>
+                <span class="font-bold text-slate-900 text-base tracking-tight block leading-tight">PORTAL KARYAWAN</span>
+                <span class="text-[11px] text-slate-500 font-medium">Sistem Informasi Manajemen Kantor</span>
+            </div>
+        </div>
+        <div class="hidden sm:flex items-center gap-4 text-xs font-semibold text-slate-600">
+            <span class="flex items-center gap-1.5 text-emerald-600">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Server Aktif
+            </span>
+            <span class="text-slate-300">|</span>
+            <a href="pengumuman.html" class="hover:text-blue-700 transition-colors">Pengumuman Terbuka</a>
+            <span class="text-slate-300">|</span>
+            <a href="#" class="hover:text-blue-700 transition-colors">Bantuan IT</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-10">
+        <div class="w-full max-w-5xl bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200/80 overflow-hidden flex flex-col lg:flex-row">
+            
+            <!-- Sisi Kiri: Branding & Informasi Korporat -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8 sm:p-12 flex flex-col justify-between relative overflow-hidden text-white">
+                <!-- Background Pattern Halus -->
+                <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:20px_20px] opacity-10"></div>
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <i class="fas fa-shield-check text-blue-400"></i> Autentikasi Terpusat
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug mb-3">
+                        Selamat Datang di Portal Kerja Digital Terpadu.
+                    </h1>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Masuk untuk mengakses agenda rapat, koordinasi dokumen, persetujuan atasan, dan kalender kegiatan kantor secara aman dan efisien.
+                    </p>
+
+                    <!-- List Fitur Utama Ringkas -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-md bg-blue-600/30 border border-blue-500/30 flex items-center justify-center text-blue-400 mt-0.5 flex-shrink-0">
+                                <i class="fas fa-calendar-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xs font-bold text-white">Agenda & Rapat Terjadwal</h2>
+                                <p class="text-[12px] text-slate-400">Pemberitahuan dan jadwal pertemuan kantor realtime.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-md bg-blue-600/30 border border-blue-500/30 flex items-center justify-center text-blue-400 mt-0.5 flex-shrink-0">
+                                <i class="fas fa-file-shield text-xs"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xs font-bold text-white">Alat Manajemen Dokumen</h2>
+                                <p class="text-[12px] text-slate-400">Konversi dan ringkas dokumen kedinasan otomatis.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-md bg-blue-600/30 border border-blue-500/30 flex items-center justify-center text-blue-400 mt-0.5 flex-shrink-0">
+                                <i class="fas fa-users-gear text-xs"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xs font-bold text-white">Hirarki & Persetujuan</h2>
+                                <p class="text-[12px] text-slate-400">Sistem persetujuan berjenjang Staf, Atasan, & Admin.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 pt-8 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-medium">
+                    <span>Versi Sistem: 3.2.0-PROD</span>
+                    <span class="flex items-center gap-1"><i class="fas fa-lock text-[10px]"></i> SSL Terenkripsi</span>
+                </div>
+            </div>
+
+            <!-- Sisi Kanan: Form Autentikasi -->
+            <div class="lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center bg-white">
+                <div class="max-w-md w-full mx-auto">
+                    
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Masuk ke Akun Anda</h2>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1">Gunakan kredensial akun Anda.</p>
+                    </div>
+
+                    <!-- Alert Box Error -->
+                    <div id="error-message" class="hidden mb-5 p-3.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2.5">
+                        <i class="fas fa-circle-exclamation text-red-500 mt-0.5 flex-shrink-0 text-sm"></i>
+                        <span id="error-text" class="flex-1 font-medium"></span>
+                    </div>
+
+                    <!-- Form Login -->
+                    <form id="login-form" class="space-y-4">
+                        
+                        <!-- Input Email -->
+                        <div>
+                            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                                Alamat Email Anda
+                            </label>
+                            <div class="relative rounded-lg shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fas fa-envelope text-sm"></i>
+                                </div>
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email" 
+                                    autocomplete="email"
+                                    class="block w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-colors"
+                                    placeholder="nama@gmail.com" 
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Input Password -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                                    Kata Sandi
+                                </label>
+                                <a href="#" class="text-xs font-semibold text-blue-700 hover:text-blue-800 hover:underline">
+                                    Lupa kata sandi?
+                                </a>
+                            </div>
+                            <div class="relative rounded-lg shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fas fa-lock text-sm"></i>
+                                </div>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    id="password" 
+                                    autocomplete="current-password"
+                                    class="block w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-colors"
+                                    placeholder="••••••••" 
+                                    required
+                                >
+                                <button 
+                                    type="button" 
+                                    id="toggle-password" 
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+                                    aria-label="Tampilkan atau sembunyikan password"
+                                >
+                                    <i class="fas fa-eye text-sm" id="eye-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Ingat Saya -->
+                        <div class="flex items-center justify-between pt-1">
+                            <label class="flex items-center cursor-pointer select-none">
+                                <input 
+                                    id="remember-me" 
+                                    name="remember-me" 
+                                    type="checkbox" 
+                                    class="h-4 w-4 text-blue-700 focus:ring-blue-600 border-slate-300 rounded cursor-pointer"
+                                >
+                                <span class="ml-2 text-xs sm:text-sm text-slate-600 font-medium">Ingat saya di perangkat ini</span>
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button 
+                                type="submit" 
+                                id="submit-button" 
+                                class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                            >
+                                <span>Masuk ke Portal</span>
+                                <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Link Register & Layanan -->
+                    <div class="mt-8 pt-6 border-t border-slate-100 text-center space-y-2">
+                        <p class="text-xs sm:text-sm text-slate-600">
+                            Karyawan baru belum memiliki akun? 
+                            <a href="register.html" class="font-bold text-blue-700 hover:text-blue-800 hover:underline">
+                                Registrasi Akun
+                            </a>
+                        </p>
+                        <p class="text-xs text-slate-400">
+                            Mengalami kendala? Hubungi <a href="#" class="text-slate-600 underline hover:text-blue-700">Helpdesk IT Internal</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Simple Corporate Footer -->
+    <footer class="w-full bg-white border-t border-slate-200 py-3 px-6 text-center text-xs text-slate-500 font-medium">
+        &copy; 2026 RizkyOfficial. Seluruh hak cipta dilindungi undang-undang. Portal internal rahasia.
+    </footer>
+
+<script>
+    // Toggle Password Visibility
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+
+    if (togglePassword && passwordInput && eyeIcon) {
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.classList.toggle('fa-eye', !isPassword);
+            eyeIcon.classList.toggle('fa-eye-slash', isPassword);
+        });
+    }
+
+    // Form Handling
+    const form = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const submitButton = document.getElementById('submit-button');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMessage.classList.add('hidden');
+
+        const formData = new FormData(form);
+        const originalContent = submitButton.innerHTML;
+        
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+            <i class="fas fa-circle-notch fa-spin text-sm"></i>
+            <span>Memverifikasi Identitas...</span>
+        `;
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                window.location.href = result.redirect_url;
+            } else {
+                errorText.textContent = result.error || 'Email atau kata sandi tidak sesuai.';
+                errorMessage.classList.remove('hidden');
+            }
+        } catch (error) {
+            errorText.textContent = 'Gagal menghubungi server. Pastikan layanan backend aktif.';
+            errorMessage.classList.remove('hidden');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalContent;
+        }
+    });
+</script>
+</body>
+</html>
+  

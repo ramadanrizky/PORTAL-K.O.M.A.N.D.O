@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Internal - Pengumuman Resmi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff', 100: '#e0effe', 500: '#0284c7', 600: '#0369a1', 700: '#075985', 800: '#0c4a6e', 900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-700 selection:text-white">
+
+    <header class="w-full bg-white border-b border-slate-200 py-3 px-6 lg:px-12 flex items-center justify-between z-10 sticky top-0">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg"><i class="fas fa-building-columns"></i></div>
+            <div>
+                <span class="font-bold text-slate-900 text-base tracking-tight block">PORTAL KARYAWAN</span>
+                <span class="text-[11px] text-slate-500 font-medium">Sistem Informasi Manajemen Kantor</span>
+            </div>
+        </div>
+        <div class="hidden sm:flex items-center gap-4 text-xs font-semibold text-slate-600">
+            <a href="/" class="hover:text-blue-700 transition-colors flex items-center gap-1.5"><i class="fas fa-arrow-left text-[10px]"></i> Kembali ke Login</a>
+        </div>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center p-6 lg:p-10">
+        <div class="w-full max-w-4xl">
+            <!-- Hero Card -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-200/80 overflow-hidden">
+                <div class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 p-8 sm:p-12 text-white relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:20px_20px] opacity-10"></div>
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
+                            <i class="fas fa-bullhorn text-blue-400"></i> PENGUMUMAN RESMI
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug mb-3">Informasi & Kebijakan Terbaru Perusahaan</h1>
+                        <p class="text-slate-300 text-sm leading-relaxed">Seluruh pengumuman yang dipublikasikan di halaman ini bersifat resmi dan berlaku untuk seluruh karyawan.</p>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div id="pengumuman-container" class="space-y-4">
+                        <div class="flex items-center justify-center py-12">
+                            <div class="flex flex-col items-center gap-3 text-slate-500">
+                                <i class="fas fa-spinner fa-spin text-2xl text-blue-600"></i>
+                                <p class="text-sm font-medium">Memuat pengumuman...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="mt-6 text-center text-xs text-slate-500 font-medium">
+                Butuh bantuan? Hubungi <a href="#" class="text-slate-700 underline hover:text-blue-700">Helpdesk IT Internal</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full bg-white border-t border-slate-200 py-3 px-6 text-center text-xs text-slate-500 font-medium">
+        &copy; 2026 PT Perusahaan Anda. Seluruh hak cipta dilindungi.
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const container = document.getElementById('pengumuman-container');
+        const API_URL = '/api/pengumuman';
+
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Gagal mengambil data pengumuman.');
+            }
+            const announcements = await response.json();
+            container.innerHTML = '';
+
+            if (announcements.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-500">
+                        <i class="fas fa-file-circle-check text-4xl text-slate-300 mb-3"></i>
+                        <p class="font-medium">Tidak ada pengumuman saat ini.</p>
+                        <p class="text-xs mt-1">Silakan periksa kembali nanti.</p>
+                    </div>`;
+                return;
+            }
+
+            const colorMap = { 
+                'indigo': 'border-indigo-500 bg-indigo-50', 
+                'teal': 'border-teal-500 bg-teal-50', 
+                'yellow': 'border-yellow-500 bg-yellow-50', 
+                'red': 'border-red-500 bg-red-50' 
+            };
+
+            announcements.forEach(ann => {
+                const borderColorClass = colorMap[ann.category] || 'border-slate-500 bg-slate-50';
+                const annElement = document.createElement('div');
+                annElement.className = `border-l-4 ${borderColorClass} pl-4 pr-4 py-4 rounded-r-lg transition-shadow hover:shadow-md`;
+                annElement.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-slate-900 text-sm sm:text-base">${ann.title}</h4>
+                            <p class="text-sm text-slate-600 mt-1 leading-relaxed">${ann.content}</p>
+                            <p class="text-xs text-slate-400 mt-2"><i class="fas fa-calendar-day mr-1"></i> Diposting: ${ann.date}</p>
+                        </div>
+                    </div>`;
+                container.appendChild(annElement);
+            });
+
+        } catch (error) {
+            console.error('Error fetching announcements:', error);
+            container.innerHTML = `<div class="text-center py-8 text-red-600 bg-red-50 border-l-4 border-red-500 pl-4 pr-4 rounded-r-lg"><i class="fas fa-triangle-exclamation mr-2"></i> Gagal memuat pengumuman: ${error.message}</div>`;
+        }
+    });
+</script>
+</body>
+</html>

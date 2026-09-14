@@ -1,0 +1,45 @@
+// ==========================================
+// FIRESTORE SECURITY RULES (VERSI LENGKAP - SEMUA FITUR)
+// ==========================================
+// Cara pasang:
+// 1. Buka Firebase Console -> pilih project "portal-staf-32f99"
+// 2. Menu kiri: Build > Firestore Database > tab "Rules"
+// 3. Hapus isi yang ada, ganti dengan kode di bawah ini
+// 4. Klik "Publish"
+//
+// Catatan keamanan sama seperti sebelumnya: aplikasi ini tidak memakai
+// Firebase Authentication (masih pakai sesi Flask sendiri), jadi SEMUA
+// PENULISAN hanya boleh lewat backend Flask (Admin SDK melewati rules ini
+// secara otomatis). Pembacaan (read) dibuka publik supaya real-time listener
+// di frontend bisa jalan.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /tugas/{tugasId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /pengumuman/{annId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /jadwal_rapat/{meetingId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /notulensi/{notulensiId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
