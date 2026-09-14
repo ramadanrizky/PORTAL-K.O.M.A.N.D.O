@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atasan - Beri Tugas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 text-white flex flex-col">
+            <div class="px-8 py-6 bg-gray-900">
+                <h2 class="text-2xl font-semibold">Portal Atasan</h2>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-2">
+                <a href="dashboard.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-tachometer-alt mr-3"></i> Dashboard</a>
+                <a href="tim-saya.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-users mr-3"></i> Tim Saya</a>
+                <a href="beri-tugas.html" class="flex items-center px-4 py-2 bg-gray-700 rounded-md"><i class="fas fa-tasks mr-3"></i> Beri Tugas</a>
+                <a href="persetujuan.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-check-square mr-3"></i> Persetujuan</a>
+                <a href="jadwal-rapat.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-calendar-plus mr-3"></i> Jadwal Rapat</a>
+                <a href="kalender-kegiatan.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-calendar-alt mr-3"></i> Kalender Kegiatan</a>
+                <a href="kelola-pengumuman.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-bullhorn mr-3"></i> Kelola Pengumuman</a>
+                <a href="/logout" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md mt-auto"><i class="fas fa-sign-out-alt mr-3"></i> Logout</a>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 p-10 overflow-y-auto">
+            <h1 class="text-3xl font-bold mb-6">Beri Tugas ke Staf</h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Form Beri Tugas -->
+                <div class="lg:col-span-1 bg-white shadow-md rounded-lg p-6 h-fit">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Tugas Baru</h3>
+                    <form id="form-beri-tugas" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Pilih Staf</label>
+                            <select id="target-staf" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500" required>
+                                <option value="">-- Memuat daftar staf... --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Judul Tugas</label>
+                            <input type="text" id="tugas-judul" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Contoh: Buat laporan mingguan" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Deskripsi (opsional)</label>
+                            <textarea id="tugas-deskripsi" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Detail tugas..."></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Prioritas</label>
+                                <select id="tugas-prioritas" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="rendah">Rendah</option>
+                                    <option value="sedang" selected>Sedang</option>
+                                    <option value="tinggi">Tinggi</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Deadline</label>
+                                <input type="date" id="tugas-deadline" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+                        <div id="beri-tugas-message-area" class="text-center text-sm"></div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 font-medium">
+                            <i class="fas fa-paper-plane mr-2"></i> Berikan Tugas
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Daftar Tugas yang Sudah Diberikan -->
+                <div class="lg:col-span-2 bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b flex justify-between items-center">
+                        <h2 class="text-xl font-semibold text-gray-800">Progres Tugas Tim</h2>
+                        <span class="text-xs text-green-600"><i class="fas fa-circle text-[8px] mr-1"></i>Live</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tugas</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Diberikan Ke</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Deadline</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tugas-diberikan-body" class="bg-white divide-y divide-gray-200">
+                                <tr><td colspan="5" class="px-4 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="hidden fixed bottom-6 right-6 bg-gray-900 text-white text-sm px-4 py-3 rounded-lg shadow-lg z-50"></div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, query, where, onSnapshot, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const CURRENT_USER_ID = "{{ user_id }}";
+
+    const firebaseConfig = await (await fetch('/api/firebase-config')).json();
+    const firebaseApp = initializeApp(firebaseConfig);
+    const fdb = getFirestore(firebaseApp);
+
+    function showToast(msg, isError = false) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.remove('hidden', 'bg-gray-900', 'bg-red-600');
+        toast.classList.add(isError ? 'bg-red-600' : 'bg-gray-900');
+        setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    const badgeStatus = {
+        belum: '<span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-gray-100 text-gray-600">Belum</span>',
+        proses: '<span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">Proses</span>',
+        selesai: '<span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-green-700">Selesai</span>'
+    };
+
+    const cacheNamaStaf = {};
+    async function ambilNamaStaf(userId) {
+        if (cacheNamaStaf[userId]) return cacheNamaStaf[userId];
+        try {
+            const snap = await getDoc(doc(fdb, 'users', userId));
+            const nama = snap.exists() ? snap.data().fullname : 'Tidak diketahui';
+            cacheNamaStaf[userId] = nama;
+            return nama;
+        } catch (e) {
+            return 'Tidak diketahui';
+        }
+    }
+
+    function formatTanggalTampil(deadlineStr) {
+        if (!deadlineStr) return null;
+        const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+        const [tahun, bln, tgl] = deadlineStr.split('-');
+        return `${parseInt(tgl)} ${bulan[parseInt(bln) - 1]} ${tahun}`;
+    }
+
+    async function loadStaf() {
+        const select = document.getElementById('target-staf');
+        try {
+            const response = await fetch('/api/atasan/staf');
+            if (!response.ok) throw new Error('Gagal memuat daftar staf.');
+            const daftar = await response.json();
+
+            select.innerHTML = '<option value="">-- Pilih staf --</option>';
+            if (daftar.length === 0) {
+                select.innerHTML = '<option value="">Tidak ada staf di tim Anda</option>';
+                return;
+            }
+            daftar.forEach(s => {
+                select.add(new Option(`${s.fullname} (${s.email})`, s.id));
+            });
+        } catch (err) {
+            select.innerHTML = '<option value="">Gagal memuat staf</option>';
+            showToast(err.message, true);
+        }
+    }
+
+    function renderTabelDiberikan(daftar) {
+        const tbody = document.getElementById('tugas-diberikan-body');
+        if (daftar.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="px-4 py-4 text-center text-gray-500">Belum ada tugas yang diberikan.</td></tr>';
+            return;
+        }
+        tbody.innerHTML = '';
+        daftar.forEach(t => {
+            const row = `
+                <tr>
+                    <td class="px-4 py-3 text-sm font-medium text-gray-900">${t.judul}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${t.diberikan_kepada}</td>
+                    <td class="px-4 py-3 text-sm">${badgeStatus[t.status] || t.status}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${t.deadline_tampil || '-'}</td>
+                    <td class="px-4 py-3 text-sm">
+                        <button onclick="batalkanTugas('${t.id}')" class="text-red-600 hover:text-red-900">Batalkan</button>
+                    </td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    // ===== REAL-TIME: mendengarkan semua tugas yang diberikan oleh atasan ini =====
+    // Begitu staf mengubah status tugasnya, tabel di sini otomatis ikut update.
+    const tugasDiberikanQuery = query(collection(fdb, 'tugas'), where('assigned_by', '==', CURRENT_USER_ID));
+
+    onSnapshot(tugasDiberikanQuery, async (snapshot) => {
+        const daftarBaru = [];
+        for (const docSnap of snapshot.docs) {
+            const t = docSnap.data();
+            const namaStaf = await ambilNamaStaf(t.user_id);
+            daftarBaru.push({
+                id: docSnap.id,
+                judul: t.judul,
+                status: t.status || 'belum',
+                deadline_tampil: formatTanggalTampil(t.deadline),
+                diberikan_kepada: namaStaf
+            });
+        }
+        daftarBaru.sort((a, b) => (a.status > b.status ? 1 : -1));
+        renderTabelDiberikan(daftarBaru);
+    }, (error) => {
+        console.error('Realtime listener error:', error);
+        document.getElementById('tugas-diberikan-body').innerHTML = '<tr><td colspan="5" class="px-4 py-4 text-center text-red-500">Gagal memuat data real-time.</td></tr>';
+    });
+
+    document.getElementById('form-beri-tugas').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+            user_id: document.getElementById('target-staf').value,
+            judul: document.getElementById('tugas-judul').value.trim(),
+            deskripsi: document.getElementById('tugas-deskripsi').value.trim(),
+            prioritas: document.getElementById('tugas-prioritas').value,
+            deadline: document.getElementById('tugas-deadline').value || null
+        };
+
+        const messageArea = document.getElementById('beri-tugas-message-area');
+        messageArea.innerHTML = '';
+
+        if (!payload.user_id) {
+            showToast('Pilih staf tujuan terlebih dahulu.', true);
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/atasan/tugas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Gagal memberi tugas.');
+
+            messageArea.textContent = result.message;
+            messageArea.className = 'text-center text-sm text-green-600';
+            showToast(result.message);
+            document.getElementById('form-beri-tugas').reset();
+            // Tidak perlu muat ulang manual -- listener realtime otomatis update tabel.
+        } catch (err) {
+            messageArea.textContent = err.message;
+            messageArea.className = 'text-center text-sm text-red-600';
+            showToast(err.message, true);
+        }
+    });
+
+    window.batalkanTugas = async function(id) {
+        if (!confirm('Batalkan tugas ini? Tugas akan dihapus dari daftar staf terkait.')) return;
+        try {
+            const response = await fetch(`/api/atasan/tugas/${id}`, { method: 'DELETE' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error);
+            showToast(result.message);
+            // Listener realtime otomatis memperbarui tabel.
+        } catch (err) {
+            showToast('Gagal membatalkan: ' + err.message, true);
+        }
+    }
+
+    // Panggil langsung (bukan lewat DOMContentLoaded) -- script type="module" sudah
+    // pasti berjalan setelah HTML selesai di-parse, jadi menunggu event tambahan
+    // justru berisiko event-nya sudah lewat duluan gara-gara ada 'await' di atas.
+    loadStaf();
+</script>
+</body>
+</html>

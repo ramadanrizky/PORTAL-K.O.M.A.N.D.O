@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Kalender Kegiatan</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-64 bg-slate-900 border-r border-slate-800 flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between h-16 bg-slate-950 px-5 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">ADMIN PANEL</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Sistem Informasi Kantor</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3 text-slate-400"></i> Dashboard
+                </a>
+                <a href="kelola-pengguna.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-users-cog text-sm w-5 text-center mr-3 text-slate-400"></i> Kelola Pengguna
+                </a>
+                <a href="jadwal-rapat.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-plus text-sm w-5 text-center mr-3 text-slate-400"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg shadow-sm border border-blue-600/50">
+                    <i class="fas fa-calendar-alt text-sm w-5 text-center mr-3 text-blue-200"></i> Kalender Kegiatan
+                </a>
+                <a href="kelola-pengumuman.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-bullhorn text-sm w-5 text-center mr-3 text-slate-400"></i> Kelola Pengumuman
+                </a>
+                <a href="lapor-kendala.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-exclamation-triangle text-sm w-5 text-center mr-3 text-slate-400"></i> Lapor Kendala
+                </a>
+            </nav>
+
+            <div class="p-3 border-t border-slate-800">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-16 bg-white border-b border-slate-200 flex items-center px-4 sm:px-6 justify-between">
+            <div class="flex items-center gap-3">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+                <div>
+                    <h1 class="text-lg font-extrabold text-slate-900 tracking-tight">Kalender Agenda Kantor</h1>
+                    <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Jadwal Agenda Kerja, Hari Libur, & Acara Satuan</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 border-l border-slate-200 pl-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs font-bold text-slate-900 leading-tight">{{ user_name or 'Admin' }}</p>
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Administrator</p>
+                </div>
+                <img class="h-9 w-9 rounded-lg border border-slate-300 bg-slate-100 object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Admin' }}&background=075985&color=fff&bold=true" alt="Admin Avatar">
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-slate-950 px-4 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-blue-700 flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">ADMIN PANEL</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3"></i> Dashboard</a>
+                    <a href="kelola-pengguna.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-users-cog text-sm w-5 text-center mr-3"></i> Kelola Pengguna</a>
+                    <a href="jadwal-rapat.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="kelola-pengumuman.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-bullhorn text-sm w-5 text-center mr-3"></i> Kelola Pengumuman</a>
+                    <a href="lapor-kendala.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-exclamation-triangle text-sm w-5 text-center mr-3"></i> Lapor Kendala</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    
+                    <!-- Month Selector Header -->
+                    <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 flex items-center justify-center font-bold">
+                                <i class="fas fa-calendar-days"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-base font-bold text-slate-900" id="month-year-display">Memuat...</h2>
+                                <p class="text-xs text-slate-500 font-medium">Jadwal Agenda Kantor</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button id="prev-month" class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600 transition-colors" title="Bulan Sebelumnya"><i class="fas fa-chevron-left text-xs"></i></button>
+                            <button id="today-btn" class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-200 transition-colors">Hari Ini</button>
+                            <button id="next-month" class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600 transition-colors" title="Bulan Berikutnya"><i class="fas fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 gap-px bg-slate-200 border border-slate-200 rounded-xl overflow-hidden shadow-sm" id="calendar-grid">
+                        <!-- Days Header -->
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Minggu</div>
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Senin</div>
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Selasa</div>
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Rabu</div>
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Kamis</div>
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Jumat</div>
+                        <div class="text-center py-2.5 bg-slate-100 text-xs font-bold text-slate-700 uppercase">Sabtu</div>
+                        <!-- Dates will be injected here -->
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    // Calendar Logic
+    let currentDate = new Date();
+    let announcements = [];
+    let meetings = [];
+
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+    // Indonesian holidays 2026 (simplified)
+    const holidays = {
+        '2026-01-01': 'Tahun Baru Masehi',
+        '2026-02-17': 'Tahun Baru Imlek',
+        '2026-03-20': 'Hari Raya Nyepi',
+        '2026-03-29': 'Wafat Isa Almasih',
+        '2026-04-10': 'Hari Raya Idul Fitri 1',
+        '2026-04-11': 'Hari Raya Idul Fitri 2',
+        '2026-05-01': 'Hari Buruh Internasional',
+        '2026-05-14': 'Kenaikan Isa Almasih',
+        '2026-05-20': 'Hari Raya Waisak',
+        '2026-06-01': 'Hari Lahir Pancasila',
+        '2026-06-27': 'Hari Raya Idul Adha',
+        '2026-07-21': 'Tahun Baru Hijriah (1 Muharram)',
+        '2026-08-17': 'Hari Kemerdekaan RI',
+        '2026-09-05': 'Maulid Nabi Muhammad SAW',
+        '2026-12-25': 'Hari Raya Natal'
+    };
+
+    function formatDateKey(date) {
+        return date.toISOString().split('T')[0];
+    }
+
+    function isToday(date) {
+        const today = new Date();
+        return date.getDate() === today.getDate() &&
+               date.getMonth() === today.getMonth() &&
+               date.getFullYear() === today.getFullYear();
+    }
+
+    function getCategoryColor(category) {
+        const colors = {
+            'indigo': 'bg-indigo-100 text-indigo-800 border-indigo-200',
+            'teal': 'bg-teal-100 text-teal-800 border-teal-200',
+            'yellow': 'bg-yellow-100 text-yellow-800 border-yellow-200',
+            'red': 'bg-red-100 text-red-800 border-red-200'
+        };
+        return colors[category] || 'bg-slate-100 text-slate-800 border-slate-200';
+    }
+
+    async function loadData() {
+        try {
+            const [annRes, meetRes] = await Promise.all([
+                fetch('/api/pengumuman'),
+                fetch('/api/meetings')
+            ]);
+            announcements = await annRes.json();
+            meetings = await meetRes.json();
+            renderCalendar();
+        } catch (error) {
+            console.error('Error loading calendar data:', error);
+            renderCalendar(); // Still render calendar even if data fails
+        }
+    }
+
+    function getEventsForDate(dateKey) {
+        const events = [];
+        
+        // Check announcements
+        announcements.forEach(ann => {
+            if (ann.publish_date === dateKey) {
+                events.push({
+                    type: 'pengumuman',
+                    title: ann.title,
+                    category: ann.category,
+                    time: ann.publish_time,
+                    colorClass: getCategoryColor(ann.category)
+                });
+            }
+        });
+
+        // Check meetings
+        meetings.forEach(meet => {
+            if (meet.tanggal_rapat === dateKey) {
+                events.push({
+                    type: 'rapat',
+                    title: meet.judul_rapat,
+                    category: 'meeting',
+                    time: meet.waktu_rapat,
+                    colorClass: 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                });
+            }
+        });
+
+        // Check holidays
+        if (holidays[dateKey]) {
+            events.push({
+                type: 'libur',
+                title: holidays[dateKey],
+                category: 'holiday',
+                colorClass: 'bg-red-100 text-red-800 border-red-200'
+            });
+        }
+
+        return events;
+    }
+
+    function renderCalendar() {
+        const grid = document.getElementById('calendar-grid');
+        const monthYearDisplay = document.getElementById('month-year-display');
+        
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+
+        // Clear existing date cells (keep day headers)
+        const dayHeaders = grid.querySelectorAll('.text-center.py-2\\.5.bg-slate-100');
+        grid.innerHTML = '';
+        dayHeaders.forEach(h => grid.appendChild(h));
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const startingDay = firstDay.getDay(); // 0 = Sunday
+        const totalDays = lastDay.getDate();
+
+        const prevMonthLastDay = new Date(year, month, 0).getDate();
+
+        // Previous month days
+        for (let i = startingDay - 1; i >= 0; i--) {
+            const day = prevMonthLastDay - i;
+            const date = new Date(year, month - 1, day);
+            const dateKey = formatDateKey(date);
+            grid.appendChild(createDayCell(day, dateKey, true, false));
+        }
+
+        // Current month days
+        for (let day = 1; day <= totalDays; day++) {
+            const date = new Date(year, month, day);
+            const dateKey = formatDateKey(date);
+            grid.appendChild(createDayCell(day, dateKey, false, isToday(date)));
+        }
+
+        // Next month days to fill grid
+        const totalCells = startingDay + totalDays;
+        const remainingCells = (7 - (totalCells % 7)) % 7;
+        for (let day = 1; day <= remainingCells; day++) {
+            const date = new Date(year, month + 1, day);
+            const dateKey = formatDateKey(date);
+            grid.appendChild(createDayCell(day, dateKey, true, false));
+        }
+    }
+
+    function createDayCell(day, dateKey, isOtherMonth, isTodayCell) {
+        const cell = document.createElement('div');
+        const events = getEventsForDate(dateKey);
+        const hasEvents = events.length > 0;
+        const isHoliday = events.some(e => e.type === 'libur');
+
+        let baseClass = 'min-h-[90px] sm:min-h-[110px] p-2 text-xs font-semibold relative';
+        if (isOtherMonth) {
+            baseClass += ' bg-slate-50/50 text-slate-300';
+        } else if (isTodayCell) {
+            baseClass += ' bg-blue-50/80 text-blue-900 border border-blue-200';
+        } else if (isHoliday) {
+            baseClass += ' bg-red-50 text-red-900 border border-red-100';
+        } else {
+            baseClass += ' bg-white text-slate-700';
+        }
+        cell.className = baseClass;
+
+        let content = '';
+        if (isTodayCell && !isOtherMonth) {
+            content += `<span class="px-1.5 py-0.5 bg-blue-700 text-white rounded">${day}</span>`;
+        } else {
+            content += `<span>${day}</span>`;
+        }
+
+        if (hasEvents) {
+            content += '<div class="mt-1.5 space-y-1 max-h-[70px] overflow-y-auto pr-1">';
+            events.slice(0, 3).forEach(event => {
+                const timeStr = event.time ? ` ${event.time.slice(0,5)}` : '';
+                content += `
+                    <div class="px-2 py-1 ${event.colorClass} text-[10px] font-bold rounded-md truncate border ${event.type === 'libur' ? '' : 'cursor-pointer hover:opacity-90'}" 
+                         title="${event.title}${timeStr}">
+                        <i class="fas ${event.type === 'pengumuman' ? 'fa-bullhorn' : event.type === 'rapat' ? 'fa-users' : 'fa-flag'} mr-1"></i>
+                        ${event.title}${timeStr}
+                    </div>
+                `;
+            });
+            if (events.length > 3) {
+                content += `<div class="text-center text-[10px] text-slate-500 mt-0.5">+${events.length - 3} lagi...</div>`;
+            }
+            content += '</div>';
+        }
+
+        cell.innerHTML = content;
+        return cell;
+    }
+
+    // Event Listeners
+    document.getElementById('prev-month').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    document.getElementById('next-month').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    document.getElementById('today-btn').addEventListener('click', () => {
+        currentDate = new Date();
+        renderCalendar();
+    });
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', loadData);
+</script>
+</body>
+</html>

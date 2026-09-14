@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atasan - Kelola Pengumuman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 text-white flex flex-col">
+            <div class="px-8 py-6 bg-gray-900">
+                <h2 class="text-2xl font-semibold">Portal Atasan</h2>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-2">
+                <a href="dashboard.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-tachometer-alt mr-3"></i> Dashboard</a>
+                <a href="tim-saya.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-users mr-3"></i> Tim Saya</a>
+                <a href="beri-tugas.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-tasks mr-3"></i> Beri Tugas</a>
+                <a href="persetujuan.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-check-square mr-3"></i> Persetujuan</a>
+                <a href="jadwal-rapat.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-calendar-plus mr-3"></i> Jadwal Rapat</a>
+                <a href="kalender-kegiatan.html" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"><i class="fas fa-calendar-alt mr-3"></i> Kalender Kegiatan</a>
+                <a href="kelola-pengumuman.html" class="flex items-center px-4 py-2 bg-gray-700 rounded-md"><i class="fas fa-bullhorn mr-3"></i> Kelola Pengumuman</a>
+                <a href="/logout" class="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md mt-auto"><i class="fas fa-sign-out-alt mr-3"></i> Logout</a>
+            </nav>
+        </div>
+        <!-- Main content -->
+        <div class="flex-1 p-10">
+            <h1 class="text-3xl font-bold mb-6">Kelola Pengumuman</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Form Input -->
+                <div class="lg:col-span-1 bg-white shadow-md rounded-lg p-6 h-fit">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Tambah Pengumuman Baru</h3>
+                    <form id="form-announcement" class="space-y-4">
+                        <div>
+                            <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
+                            <input type="text" name="title" id="title" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required>
+                        </div>
+                        <div>
+                            <label for="content" class="block text-sm font-medium text-gray-700">Konten</label>
+                            <textarea name="content" id="content" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></textarea>
+                        </div>
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-gray-700">Kategori Warna</label>
+                            <select name="category" id="category" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                                <option value="indigo">Info (Biru)</option>
+                                <option value="teal">Acara (Hijau)</option>
+                                <option value="yellow">Peringatan (Kuning)</option>
+                                <option value="red">Penting (Merah)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 font-medium">
+                            <i class="fas fa-plus-circle mr-2"></i> Tambahkan
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Daftar Pengumuman -->
+                <div class="lg:col-span-2 bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b">
+                        <h2 class="text-xl font-semibold text-gray-800">Daftar Pengumuman</h2>
+                    </div>
+                    <div id="announcement-list" class="divide-y divide-gray-200 p-4 space-y-4">
+                        <p class="text-center text-gray-500 py-4"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat pengumuman...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const form = document.getElementById('form-announcement');
+    const listContainer = document.getElementById('announcement-list');
+
+    const API_BASE = '/api/pengumuman';
+
+    async function loadAnnouncements() {
+        listContainer.innerHTML = '<p class="text-center text-gray-500 py-4"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat pengumuman...</p>';
+        
+        try {
+            const response = await fetch(API_BASE);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const announcements = await response.json();
+            
+            listContainer.innerHTML = '';
+
+            if (!announcements || announcements.length === 0) {
+                listContainer.innerHTML = '<p class="text-center text-gray-500 py-4">Belum ada pengumuman.</p>';
+                return;
+            }
+
+            const colorMap = { 
+                'indigo': 'border-indigo-400', 
+                'teal': 'border-teal-400', 
+                'yellow': 'border-yellow-400', 
+                'red': 'border-red-400' 
+            };
+
+            announcements.forEach(ann => {
+                const borderColorClass = colorMap[ann.category] || 'border-gray-400';
+                // CATATAN: ID sekarang berupa STRING (Firestore document ID), harus diapit kutip.
+                const item = `
+                    <div class="p-4 border-l-4 ${borderColorClass} bg-gray-50 rounded-r-md">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-800">${escapeHtml(ann.title)}</h4>
+                                <p class="text-sm text-gray-600 mt-1 whitespace-pre-wrap">${escapeHtml(ann.content)}</p>
+                                <p class="text-xs text-gray-400 mt-2">
+                                    <i class="far fa-clock mr-1"></i> Diposting: ${ann.date || '-'}
+                                </p>
+                            </div>
+                            <button onclick="deleteAnnouncement('${ann.id}')" class="text-red-500 hover:text-red-700 ml-4 flex-shrink-0 p-2 rounded hover:bg-red-50 transition" title="Hapus">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                listContainer.insertAdjacentHTML('beforeend', item);
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            listContainer.innerHTML = `<p class="text-center text-red-500 py-4"><i class="fas fa-exclamation-triangle mr-2"></i> Gagal memuat data: ${error.message}</p>`;
+        }
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const data = {
+            title: document.getElementById('title').value.trim(),
+            content: document.getElementById('content').value.trim(),
+            category: document.getElementById('category').value
+        };
+
+        if (!data.title || !data.content) {
+            alert('Judul dan konten wajib diisi!');
+            return;
+        }
+
+        const btnSubmit = form.querySelector('button[type="submit"]');
+        const originalText = btnSubmit.innerHTML;
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan...';
+
+        try {
+            const response = await fetch(API_BASE, { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data) 
+            });
+            
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+            
+            alert(result.message || 'Pengumuman berhasil ditambahkan!');
+            form.reset();
+            loadAnnouncements();
+        } catch (error) {
+            alert('Gagal menambah pengumuman: ' + error.message);
+        } finally {
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = originalText;
+        }
+    });
+
+    async function deleteAnnouncement(annId) {
+        if (!confirm('Apakah Anda yakin ingin menghapus pengumuman ini?')) return;
+        
+        try {
+            const response = await fetch(`${API_BASE}/${annId}`, { 
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+            
+            alert(result.message || 'Pengumuman berhasil dihapus!');
+            loadAnnouncements();
+        } catch (error) {
+            alert('Gagal menghapus pengumuman: ' + error.message);
+        }
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAnnouncements);
+</script>
+</body>
+</html>

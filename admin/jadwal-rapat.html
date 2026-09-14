@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Jadwal Rapat</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-64 bg-slate-900 border-r border-slate-800 flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <!-- Logo & Brand Header -->
+            <div class="flex items-center justify-between h-16 bg-slate-950 px-5 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">ADMIN PANEL</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Sistem Informasi Kantor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3 text-slate-400"></i> Dashboard
+                </a>
+                <a href="kelola-pengguna.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-users-cog text-sm w-5 text-center mr-3 text-slate-400"></i> Kelola Pengguna
+                </a>
+                <a href="jadwal-rapat.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg shadow-sm border border-blue-600/50">
+                    <i class="fas fa-calendar-plus text-sm w-5 text-center mr-3 text-blue-200"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-sm w-5 text-center mr-3 text-slate-400"></i> Kalender Kegiatan
+                </a>
+                <a href="kelola-pengumuman.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-bullhorn text-sm w-5 text-center mr-3 text-slate-400"></i> Kelola Pengumuman
+                </a>
+                <a href="lapor-kendala.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-exclamation-triangle text-sm w-5 text-center mr-3 text-slate-400"></i> Lapor Kendala
+                </a>
+            </nav>
+
+            <!-- Bottom Profile & Logout -->
+            <div class="p-3 border-t border-slate-800">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-16 bg-white border-b border-slate-200 flex items-center px-4 sm:px-6 justify-between">
+            <div class="flex items-center gap-3">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+                <div>
+                    <h1 class="text-lg font-extrabold text-slate-900 tracking-tight">Kelola Jadwal Rapat</h1>
+                    <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Tambah, lihat, dan hapus jadwal rapat kantor</p>
+                </div>
+            </div>
+
+            <!-- Top Right Profile Info -->
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Mode Administrator
+                </div>
+                <div class="flex items-center gap-3 border-l border-slate-200 pl-4">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-xs font-bold text-slate-900 leading-tight">{{ user_name or 'Admin' }}</p>
+                        <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Administrator</p>
+                    </div>
+                    <img class="h-9 w-9 rounded-lg border border-slate-300 bg-slate-100 object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Admin' }}&background=075985&color=fff&bold=true" alt="Admin Avatar">
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-slate-950 px-4 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-blue-700 flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">ADMIN PANEL</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3"></i> Dashboard</a>
+                    <a href="kelola-pengguna.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-users-cog text-sm w-5 text-center mr-3"></i> Kelola Pengguna</a>
+                    <a href="jadwal-rapat.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="kelola-pengumuman.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-bullhorn text-sm w-5 text-center mr-3"></i> Kelola Pengumuman</a>
+                    <a href="lapor-kendala.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-exclamation-triangle text-sm w-5 text-center mr-3"></i> Lapor Kendala</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Form Input Jadwal -->
+                    <div class="lg:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 h-fit">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
+                                <i class="fas fa-plus-circle text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900">Tambah Rapat Baru</h3>
+                                <p class="text-xs text-slate-500 font-medium">Isi formulir untuk membuat jadwal rapat</p>
+                            </div>
+                        </div>
+                        <form id="form-jadwal" class="space-y-4">
+                            <div>
+                                <label for="judul_rapat" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Judul Rapat</label>
+                                <input type="text" name="judul_rapat" id="judul_rapat" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600" required>
+                            </div>
+                            <div>
+                                <label for="tanggal_rapat" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Tanggal</label>
+                                <input type="date" name="tanggal_rapat" id="tanggal_rapat" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600" required>
+                            </div>
+                            <div>
+                                <label for="waktu_rapat" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Waktu</label>
+                                <input type="time" name="waktu_rapat" id="waktu_rapat" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600" required>
+                            </div>
+                            <div>
+                                <label for="peserta_rapat" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Peserta</label>
+                                <textarea name="peserta_rapat" id="peserta_rapat" rows="3" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600" placeholder="Contoh: Tim IT, Tim Marketing"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-emerald-600 text-white py-2.5 px-4 rounded-lg hover:bg-emerald-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors shadow-sm">
+                                <i class="fas fa-plus-circle"></i> Tambahkan Jadwal
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Daftar Jadwal Rapat -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700">
+                                    <i class="fas fa-calendar-check text-lg"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-base font-bold text-slate-900">Daftar Rapat Terjadwal</h2>
+                                    <p class="text-xs text-slate-500 font-medium">Semua jadwal rapat yang telah dibuat</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Judul & Peserta</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tanggal & Waktu</th>
+                                        <th class="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="jadwal-table-body" class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-8 text-center text-slate-500">
+                                            <i class="fas fa-spinner fa-spin mr-2"></i> Memuat jadwal rapat...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    const formJadwal = document.getElementById('form-jadwal');
+    const tableBodyJadwal = document.getElementById('jadwal-table-body');
+
+    async function loadMeetings() {
+        try {
+            const response = await fetch('/api/meetings');
+            const meetings = await response.json();
+            tableBodyJadwal.innerHTML = '';
+
+            if (meetings.length === 0) {
+                tableBodyJadwal.innerHTML = '<tr><td colspan="3" class="px-6 py-8 text-center text-slate-500">Belum ada rapat yang dijadwalkan.</td></tr>';
+                return;
+            }
+
+            meetings.forEach(meeting => {
+                const row = `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-slate-900">${meeting.judul}</div>
+                            <div class="text-xs text-slate-500 mt-0.5">Peserta: ${meeting.peserta || '-'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-700">${meeting.tanggal}, ${meeting.waktu}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button onclick="deleteMeeting('${meeting.id}')" class="text-red-600 hover:text-red-900 font-medium">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+                tableBodyJadwal.insertAdjacentHTML('beforeend', row);
+            });
+        } catch (error) {
+            console.error('Error loading meetings:', error);
+            tableBodyJadwal.innerHTML = '<tr><td colspan="3" class="px-6 py-8 text-center text-red-500">Gagal memuat data.</td></tr>';
+        }
+    }
+
+    formJadwal.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(formJadwal);
+        try {
+            const response = await fetch('/api/meetings', { method: 'POST', body: formData });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error);
+            alert(result.message);
+            formJadwal.reset();
+            loadMeetings();
+        } catch (error) {
+            alert('Gagal menambah jadwal: ' + error.message);
+        }
+    });
+
+    async function deleteMeeting(meetingId) {
+        if (!confirm('Apakah Anda yakin ingin menghapus jadwal rapat ini?')) return;
+        try {
+            const response = await fetch(`/api/meetings/${meetingId}`, { method: 'DELETE' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error);
+            alert(result.message);
+            loadMeetings();
+        } catch (error) {
+            alert('Gagal menghapus jadwal: ' + error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMeetings);
+
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+</script>
+</body>
+</html>

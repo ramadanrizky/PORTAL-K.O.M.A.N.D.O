@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Lapor Kendala</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-scroll::-webkit-scrollbar { display: none; }
+        .sidebar-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex h-screen overflow-hidden selection:bg-blue-700 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex lg:flex-shrink-0 w-64 bg-slate-900 border-r border-slate-800 flex-col h-full text-white">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between h-16 bg-slate-950 px-5 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm tracking-tight block leading-tight">ADMIN PANEL</span>
+                        <span class="text-[10px] text-blue-400 font-medium">Sistem Informasi Kantor</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto sidebar-scroll">
+                <a href="dashboard.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3 text-slate-400"></i> Dashboard
+                </a>
+                <a href="kelola-pengguna.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-users-cog text-sm w-5 text-center mr-3 text-slate-400"></i> Kelola Pengguna
+                </a>
+                <a href="jadwal-rapat.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-plus text-sm w-5 text-center mr-3 text-slate-400"></i> Jadwal Rapat
+                </a>
+                <a href="kalender-kegiatan.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-sm w-5 text-center mr-3 text-slate-400"></i> Kalender Kegiatan
+                </a>
+                <a href="kelola-pengumuman.html" class="text-slate-300 hover:bg-slate-800 hover:text-white font-medium flex items-center px-3.5 py-2.5 text-xs rounded-lg transition-colors">
+                    <i class="fas fa-bullhorn text-sm w-5 text-center mr-3 text-slate-400"></i> Kelola Pengumuman
+                </a>
+                <a href="lapor-kendala.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg shadow-sm border border-blue-600/50">
+                    <i class="fas fa-exclamation-triangle text-sm w-5 text-center mr-3 text-blue-200"></i> Lapor Kendala
+                </a>
+            </nav>
+
+            <div class="p-3 border-t border-slate-800">
+                <a href="/logout" class="flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-red-950/40 hover:text-red-400 rounded-lg transition-colors border border-transparent hover:border-red-900/50">
+                    <i class="fas fa-sign-out-alt text-sm w-5 text-center text-slate-400"></i> Keluar (Logout)
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="relative z-10 flex-shrink-0 h-16 bg-white border-b border-slate-200 flex items-center px-4 sm:px-6 justify-between">
+            <div class="flex items-center gap-3">
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+                <div>
+                    <h1 class="text-lg font-extrabold text-slate-900 tracking-tight">Pelaporan Kendala Sistem</h1>
+                    <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Pengiriman Laporan Eskalasi Masalah ke Manajemen Atasan</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 border-l border-slate-200 pl-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs font-bold text-slate-900 leading-tight">{{ user_name or 'Admin' }}</p>
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Administrator</p>
+                </div>
+                <img class="h-9 w-9 rounded-lg border border-slate-300 bg-slate-100 object-cover" src="https://ui-avatars.com/api/?name={{ user_name or 'Admin' }}&background=075985&color=fff&bold=true" alt="Admin Avatar">
+            </div>
+        </header>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 z-40 lg:hidden hidden backdrop-blur-sm"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform -translate-x-full lg:hidden transition-transform duration-300 ease-out text-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-center justify-between h-16 bg-slate-950 px-4 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-blue-700 flex items-center justify-center text-white font-bold text-sm"><i class="fas fa-building-columns"></i></div>
+                        <span class="font-bold text-white text-sm">ADMIN PANEL</span>
+                    </div>
+                    <button id="mobile-sidebar-close" class="p-2 text-slate-400 hover:text-white rounded-lg"><i class="fas fa-times text-lg"></i></button>
+                </div>
+                <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+                    <a href="dashboard.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-tachometer-alt text-sm w-5 text-center mr-3"></i> Dashboard</a>
+                    <a href="kelola-pengguna.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-users-cog text-sm w-5 text-center mr-3"></i> Kelola Pengguna</a>
+                    <a href="jadwal-rapat.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-plus text-sm w-5 text-center mr-3"></i> Jadwal Rapat</a>
+                    <a href="kalender-kegiatan.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-calendar-alt text-sm w-5 text-center mr-3"></i> Kalender Kegiatan</a>
+                    <a href="kelola-pengumuman.html" class="text-slate-300 hover:bg-slate-800 flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-bullhorn text-sm w-5 text-center mr-3"></i> Kelola Pengumuman</a>
+                    <a href="lapor-kendala.html" class="bg-blue-700 text-white font-semibold flex items-center px-3.5 py-2.5 text-xs rounded-lg"><i class="fas fa-exclamation-triangle text-sm w-5 text-center mr-3"></i> Lapor Kendala</a>
+                    <a href="/logout" class="text-red-400 hover:bg-red-950/40 flex items-center px-3.5 py-2.5 text-xs rounded-lg mt-6"><i class="fas fa-sign-out-alt text-sm w-5 text-center mr-3"></i> Logout</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area Scrollable -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 content-scroll p-4 sm:p-6 lg:p-8">
+            <div class="max-w-3xl mx-auto">
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+                    
+                    <div class="border-b border-slate-100 pb-5 mb-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-2">
+                            <i class="fas fa-shield-cat"></i> Eskalasi Kendala Operasional
+                        </div>
+                        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Formulir Laporan Kendala</h2>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            Formulir ini digunakan untuk menyampaikan kendala teknis atau operasional yang memerlukan penyelesaian lanjutan oleh pimpinan atau manajemen pusat.
+                        </p>
+                    </div>
+
+                    <form id="form-kendala" class="space-y-5">
+                        <div>
+                            <label for="subjek_kendala" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                                Subjek / Ringkasan Kendala
+                            </label>
+                            <input 
+                                type="text" 
+                                name="subjek_kendala" 
+                                id="subjek_kendala" 
+                                class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" 
+                                placeholder="Contoh: Gangguan koneksi server lokal kantor cabang..." 
+                                required
+                            >
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="kategori_kendala" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                                    Kategori Masalah
+                                </label>
+                                <select id="kategori_kendala" name="kategori_kendala" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                    <option>Infrastruktur Teknis / IT</option>
+                                    <option>Operasional Kantor</option>
+                                    <option>Sumber Daya Manusia</option>
+                                    <option>Sarana & Fasilitas</option>
+                                    <option>Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="urgensi" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                                    Tingkat Urgensi
+                                </label>
+                                <select id="urgensi" name="urgensi" class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                    <option value="rendah">Rendah (Penanganan Biasa)</option>
+                                    <option value="sedang">Sedang (Perlu Perhatian)</option>
+                                    <option value="tinggi">Tinggi (Mendesak / Critical)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="deskripsi_kendala" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                                Deskripsi Rinci Masalah & Dampak
+                            </label>
+                            <textarea 
+                                name="deskripsi_kendala" 
+                                id="deskripsi_kendala" 
+                                rows="5" 
+                                class="block w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600" 
+                                placeholder="Jelaskan secara detail kronologi kejadian, waktu terjadinya kendala, serta dampak pada proses operasional kantor..." 
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-700 transition-colors text-xs flex items-center justify-center gap-2 shadow-sm">
+                                <i class="fas fa-paper-plane"></i> Kirim Laporan Eskalasi ke Manajemen Atasan
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+<script>
+    // Mobile Sidebar Logic
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileClose = document.getElementById('mobile-sidebar-close');
+
+    function openMobileSidebar() { mobileSidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+    function closeMobileSidebar() { mobileSidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+
+    sidebarToggle?.addEventListener('click', openMobileSidebar);
+    mobileClose?.addEventListener('click', closeMobileSidebar);
+    sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
+    document.getElementById('form-kendala')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Laporan kendala telah berhasil dikirimkan ke Manajemen Atasan.');
+        e.target.reset();
+    });
+</script>
+</body>
+</html>
